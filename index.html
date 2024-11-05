@@ -1,0 +1,442 @@
+<!--
+Program name: patient-form.html
+Author: Vimukthi Habarakada Liyanage Don
+Date created: 10/08/2024
+Date last edited: 10/19/2024
+Version: 1.1
+Description: This is the assignmt 2 for transaction proccessing systems, This is a medical form. -->
+
+<!DOCTYPE html>
+<html>
+    <!--Page title and CSS link-->
+    <head> 
+         <title> Patient Registration form Homework 1 </title>
+         <link href="style.css" rel="stylesheet">
+    </head>
+    
+
+<body>
+    <!-- Banner Section contains the logo, titile and date-->
+    <div id="banner"> 
+        <img id="logo" src="1.png" alt="Medical form logo">
+        <h1> Medical Care Medical Center</h1>
+        <div id="banner date"> Today's Date: <span id="current date"></span></div> 
+    </div>
+    <!--Start of the form-->
+    <form name="signup" id="signup" method="get" action="thankyou.html">
+        
+        <h1>Registration Form</h1>
+        <!--Table for for layout-->
+        <table class="form">
+            
+            <tbody>
+                <!--Row for entering first,middle and last name-->
+                <tr class="form" >
+            
+                    <td>
+                        <label for = "First Name"> First Name </label>
+                        <label for = "Middle Name"> MI </label>
+                        <label for = "Last Name"> Last Name </label>
+            
+                    </td>           
+                
+        
+                    <td>
+                        <!--Input fields for names with placeholders-->
+                        <input type="text" size="10" name="First Name" maxlength="30" id="firstname" pattern="[A-Za-z'-]{1,30}" required 
+                        oninvalid="this.setCustomValidity('First Name not valid.')" 
+                        oninput="this.setCustomValidity('')" 
+                        onblur="checkfirstname()" 
+                        placeholder="John (Required)" 
+                        title="1 to 30 characters. Only letters, apostrophes, and dashes allowed."> 
+
+
+                        
+                        <input type="text" size="1" name="Middle Initial" maxlength="1" id="middleinitial" pattern="[A-Za-z]{1}" required 
+                        oninvalid="this.setCustomValidity('Middle Initial not valid.')" 
+                        oninput="this.setCustomValidity('')" 
+                        onblur="checkmiddleinitial()" 
+                        placeholder="M" 
+                        title="1 character. Only letters allowed. Optional field.">
+
+                    
+                        <input type="text" size="20" name="Last Name" maxlength="30" id="lastname" pattern="[A-Za-z'-]{1,30}" required 
+                        oninvalid="this.setCustomValidity('Last Name not valid.')" 
+                        oninput="this.setCustomValidity('')" 
+                        onblur="checklasttname()" 
+                        placeholder="Does (Required)" 
+                        title="1 to 30 characters. Letters, apostrophes, dashes, and numbers 2 to 5 allowed.">
+
+                    
+                    </td>
+                <!--Row for date of birth input-->
+                </tr>
+
+                <tr>
+                    <td>                    
+                        <label for "DateofBirth"> Date of Birth </label>                
+                    </td>
+
+                    <td>
+                        <input type="date" id="dob" name="Date of Birth" placeholder="MM/DD/YYY" required
+                        onblur="validateDOB()">
+                    <br />
+                    <span class="error" id="dob-error"></span> 
+                    </td>
+                </tr>
+                
+                <!--Row for Social Security Number -->
+                <tr>
+                    <td>
+                        <label for "SocialSecurityNumber"> Social Security Number </label>
+                    <br />
+                    <span class="error" id="ssn-error"></span>
+                    </td>
+
+                    <td>
+                        <input type="password" id="ssn" name="Social Security Number"  maxlength="10" placeholder="XXX-XX-XXXX" required>                                   
+                    </td>
+                </tr>
+                <!--Row for address input-->
+                <tr>
+                    <td>
+                        <label for="addressline1"> Address Line 1 </label>
+                    </td>
+
+                    <td>
+                        <input type="text" id="addressline1"  minlength="2" maxlength="30" required 
+                        placeholder="123 Main St"
+                        name="Address Line 1"
+                        title="Address Line 1 must be between 2 and 30 characters."
+                        oninvalid="this.setCustomValidity('Address Line 1 must be between 2 and 30 characters.')"
+                        oninput="this.setCustomValidity('')"
+                        onblur="validateAddressLine1()">
+                        <br />
+                        <span class="error" id="addressline1-error"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="addressline2"> Address Line 2 </label>
+                    </td>
+
+                    <td>
+                        <input type="text" id="addressline2" minlength="2" maxlength="30" required 
+                        placeholder="ABC Building"
+                        name="Address Line 2"
+                        title="Address Line2 must be between 2 and 30 characters."
+                        oninvalid="this.setCustomValidity('Address Line 2 must be between 2 and 30 characters.')"
+                        oninput="this.setCustomValidity('')"
+                        onblur="validateAddressLine2()">
+                        <br />
+                        <span class="error" id="addressline2-error"></span>
+                    </td>
+                </tr>    
+                <!--Row for City,State and Zip code input-->
+                <tr>
+                    <td>
+                        <label for="city">City/</label>
+                        <label for="state">State/</label>
+                        <label for="Zip">Zip Code</label>                
+                    </td>
+
+                    <td>
+                        <!--Input city-->
+                        <input type="text" id="city"  minlength="2"maxlength="30" required 
+                        placeholder="Houston"
+                        name="City"
+                        title="City must be between 2 and 30 characters."                  
+                        oninvalid="this.setCustomValidity('City must be between 2 and 30 characters.')"
+                        oninput="this.setCustomValidity('')"
+                        onblur="validateCity()">
+                        <br />
+                        <span class="error" id="city-error"></span>
+                        
+                        <!--Dropsown for state selextion-->
+                        <select id="state" name="State">
+                            <!--List of US states-->
+                            <option value="">Select State</option>
+                            <option value="AL">AL</option>
+                            <option value="AK">AK</option>
+                            <option value="AR">AR</option>
+                            <option value="AZ">AZ</option>
+                            <option value="CA">CA</option>
+                            <option value="CO">CO</option>
+                            <option value="CT">CT</option>
+                            <option value="DC">DC</option>
+                            <option value="DE">DE</option>
+                            <option value="FL">FL</option>
+                            <option value="GA">GA</option>
+                            <option value="HI">HI</option>
+                            <option value="IA">IA</option>
+                            <option value="ID">ID</option>
+                            <option value="IL">IL</option>
+                            <option value="IN">IN</option>
+                            <option value="KS">KS</option>
+                            <option value="KY">KY</option>
+                            <option value="LA">LA</option>
+                            <option value="MA">MA</option>
+                            <option value="MD">MD</option>
+                            <option value="ME">ME</option>
+                            <option value="MI">MI</option>
+                            <option value="MN">MN</option>
+                            <option value="MO">MO</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="NC">NC</option>
+                            <option value="NE">NE</option>
+                            <option value="NH">NH</option>
+                            <option value="NJ">NJ</option>
+                            <option value="NM">NM</option>
+                            <option value="NV">NV</option>
+                            <option value="NY">NY</option>
+                            <option value="ND">ND</option>
+                            <option value="OH">OH</option>
+                            <option value="OK">OK</option>
+                            <option value="OR">OR</option>
+                            <option value="PA">PA</option>
+                            <option value="RI">RI</option>
+                            <option value="SC">SC</option>
+                            <option value="SD">SD</option>
+                            <option value="TN">TN</option>
+                            <option value="TX">TX</option>
+                            <option value="UT">UT</option>
+                            <option value="VT">VT</option>
+                            <option value="VA">VA</option>
+                            <option value="WA">WA</option>
+                            <option value="WI">WI</option>
+                            <option value="WV">WV</option>
+                            <option value="WY">WY</option>                    
+                        </select>
+                        
+                        <!--Input for Zip code-->
+                        <input type="text" id="zip" maxlength="10" pattern="\d{5}(-\d{4})?" 
+                        placeholder="12345"
+                        size="5"
+                        name="Zip Code"
+                        title="Enter a 5-digit zip code or a 9-digit zip code with a dash (e.g., 12345-6789)."
+                        oninvalid="this.setCustomValidity('Invalid Zip Code. Enter a 5-digit zip code or zip+4 format (12345-6789).')" 
+                        required
+                        oninput="this.setCustomValidity('')"
+                        onblur="validateZipcode()">
+                        <br />
+                        <span class="error" id="zip-error"></span>
+                    </td>                
+                </tr>
+                
+                <!--Row for phone number-->
+                <tr>
+                    <td>
+                        <label for "phonenumber">Phone Number</label>
+                    </td>
+
+                    <td>
+                        <input type="phonenumber" id="phonenumber" maxlength="10" placeholder="(XXX-XXX-XXXX)" required
+                        pattern="\d{3}-\d{3}-\d{4}"
+                        name="Phone Number"
+                        title="Enter a valid phone number in the format 000-000-0000"
+                        onblur="validatePhone()"
+                        oninvalid="this.setCustomValidity('Invalid phone number. Please use the format 000-000-0000')"
+                        oninput="this.setCustomValidity('')">
+
+                    <br />
+                    <span class="error" id="phone-error"></span>
+                        
+                    </td>
+                </tr>
+
+                <!--Row for email input-->
+                <tr>
+                    <td>
+                        <label for "email"> Email </label>
+                    </td>
+
+                    <td>
+                        <input type="email"  id="email" maxlength="30" placeholder="example@domain.com" required pattern="[a-z-9._%+-]+@[a-z0-9.-]+\[a-z]{2,20}$"
+                        title="Enter a valid email address (e.g., example@domain.com)" 
+                        name="Email"
+                        oninvalid="this.setCustomValidity('Invalid email format. Please use the format example@domain.com')"
+                        oninput="this.setCustomValidity('')">
+                    </td>
+                </tr>
+                <!--Row for describing symptoms-->
+                <tr>
+                    <td>
+                        <label for "CurrentSymptoms"> Discribe current symptoms </label>
+                    </td>
+
+                    <td>
+                        <textarea id="symptoms" rows="3" cols="50" maxlength="100" 
+                        pattern='[^"]*'
+                        placeholder="How are you feeling"
+                        name="Symptoms"
+                        title="Please avoid using double quotes (\"\"\"), as they are not allowed.">    
+                        </textarea>
+                    </td>
+                </tr>
+                <!--Row for selecting ilnesses-->
+                <tr>
+                    <td>
+                    <label for "checkbox"> Have you had </label>
+                    </td>
+                    <td>
+                        <!--Checkboes for different ilnesses-->
+                        <input type="checkbox" id="ChickenPox" name="Chicken Pox" value="Chicken Pox">
+                        <label for="ChickenPox"> Chicken Pox</label>
+                        <br>
+                        <input type="checkbox" id="Measles" name="Measles" value="Measles">
+                        <label for="Measles"> Measles</label>
+                        <br>
+                        <input type="checkbox" id="Covid-19" name="Covid-19" value="Covid-19">
+                        <label for="Covid-19"> Covid-19</label>
+                        <br>
+                        <input type="checkbox" id="Smallpox" name="Smallpox" value="Smallpox">
+                        <label for="Smallpox"> Smallpox</label>
+                        <br>
+                        <input type="checkbox" id="Tetanus" name="Tetanus" value="Tetanus">
+                        <label for="Tetanus"> Tetanus</label>
+                    
+                    </td>                
+
+                </tr>
+                <!--Row for gender selection-->
+                <tr>
+                    <td>
+                        <label for="Gender">Gender</label>
+                    </td>
+
+                    <td>
+                        <!--Radio button for gender selection-->
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male">Male</label>
+                        <input type="radio" id="Female" name="gender" value="Female" required>
+                        <label for="Female">Female</label>
+                        <input type="radio" id="Other" name="gender" value="Other" required>
+                        <label for="Other">Other</label>
+                    </td>
+                </tr>
+
+                <!--Row for vaccination status-->                
+                <tr>
+                    <td>
+                        Are you vaccinated
+                    </td>
+
+                    <td>
+                        <input type="radio" id="vaccinationYes" value="Yes" name="vaccination" required>
+                        <label for="Yes"> Yes </label>
+                        <input type="radio" id="VaccinationNo" value="No" name="vaccination" required>
+                        <label for="No"> No </label>
+                    </td>
+                </tr>
+                <!--Row for insurance status-->
+                <tr>
+                    <td>
+                        Do you have insurance
+                    </td>
+
+                    <td>
+                        <input type="radio" id="insuranceYes" value="Yes" name="insurance" required>
+                        <label for="Yes"> Yes </label>
+                        <input type="radio" id="insuranceNo" value="No" name="insurance" required>
+                        <label for="No"> No </label>
+                    </td>
+                </tr>
+                <!--Row for health scale input-->
+                <tr>
+                    <td>
+                        <label for="healthscale"> On a scale of 1 to 10, 10 being feeling good, how is your health? </label>
+                    </td>
+
+                    <td>
+                        <input type="range" id="range" name="healthscale" min="1" max="10" value="0">
+                    <span id="range-scale"></span>
+                    </td>
+                </tr>
+                <!--Row for user ID-->
+                <tr>
+                    <td>
+                        <label for="userid"> User Id</label>                     
+                    </td>                    
+
+                    <td>
+                        <input type="text" id="userid" name="userid" maxlength="30" required onblur="validateUserId()"/>
+                    <br/>
+                    <span class="error" id="userid-error"></span>
+                    </td>
+                </tr>
+                <!--Row for password input-->
+                <tr>
+                    <td>
+                        <label for="password"> Password</label>                     
+                    </td>  
+                    <td>
+                    <input type="password" id="pwd" name="password" maxlength="30" onfocus="validatePassword()" oninput="validatePassword()" required>
+                    <span class="error" id="pwd-error"></span>
+                    </td>
+                </tr>
+                <!--Row for coinfirming password-->
+                <tr>
+                    <td>
+                        <label for="confirmpassword"> Confirm Password</label>                     
+                    </td>                   
+
+                    <td>
+                    <input type="password" id="pwd2" name="confirmpassword" maxlength="30" onblur="confirmPassword()" required>
+                    <span class="error" id="pwd2-error"></span>
+                    </td>   
+                                                   
+                </tr>                       
+                              
+
+            </tbody>
+
+
+        </table>
+
+        <div class="pwd-message">
+            <span id="msg1"></span> <br/>
+            <span id="msg2"></span> <br/>
+            <span id="msg3"></span> <br/>
+            <span id="msg4"></span> <br/>
+            <span id="msg5"></span> <br/>
+            <span id="msg6"></span> <br/>
+        </div>
+
+        <!--Button for form actions-->
+        <div class="button-container">
+            <input type="reset" name="reset" id="reset" value="Reset" onclick="removeReview()"/>
+            <input type="submit" name="submit" id="submit"/>
+            <input type="button" name="review" id="review" value="Review" onclick="reviewInput()"/>
+
+        </div>
+    
+    </form>
+
+    <center>
+        <div id="showinput"></div>
+    </center>
+
+        <!--Footer with links-->
+    <footer>
+        <p>
+            <a href="https://www.google.com/maps/place/University+of+Houston/@29.7204627,-95.3429319,16z/data=!3m1!4b1!4m6!3m5!1s0x8640be5a8ebea199:0xc9f387eca8247e7!8m2!3d29.7204627!4d-95.3429319!16zL20vMDJncjgx?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"> Address </a>
+
+            <a href=""> Contact Us </a>
+
+            <a href="https://www.facebook.com/UniversityOfHouston"> Social Media </a>
+        </p>
+    </footer>
+    
+    <!--Javascript to display the current date-->
+   <script>
+        const d = new Date();
+        let text = d.toLocaleDateString();
+        document.getElementById("current date").innerHTML = text;   
+   </script>
+  
+  <script src="hw2.js"></script>     
+
+</body>
+</html>
